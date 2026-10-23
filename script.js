@@ -1,108 +1,101 @@
-/* ============================================
-   Style 2 JavaScript
-   Three features:
-   1. Open and close the menu on small screens
-   2. Check the contact form before sending
-   3. Highlight the sidebar link of the section you are reading
-   ============================================ */
-
-
-/* ---------- 1. MENU BUTTON ---------- */
-
-var menuBtn = document.getElementById("menuBtn");
-var menu = document.getElementById("menu");
-
-// on click, add or remove the class "show"
-menuBtn.addEventListener("click", function () {
-  menu.classList.toggle("show");
+/* 1. theme toggle (remembered) */
+var themeBtn = document.getElementById("themeBtn");
+try { if (localStorage.getItem("theme") === "light") document.body.classList.add("light"); } catch (e) {}
+function setIcon() { themeBtn.innerHTML = document.body.classList.contains("light") ? "&#9790;" : "&#9728;"; }
+setIcon();
+themeBtn.addEventListener("click", function () {
+  document.body.classList.toggle("light");
+  try { localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark"); } catch (e) {}
+  setIcon();
 });
 
-// close the menu after a link is clicked
-var links = document.querySelectorAll(".menu a");
-for (var i = 0; i < links.length; i++) {
-  links[i].addEventListener("click", function () {
-    menu.classList.remove("show");
-  });
+/* 2. typing effect */
+var words = ["CS student", "future full stack developer", "Java learner", "hackathon player"];
+var typed = document.getElementById("typed");
+var wi = 0, ci = 0, deleting = false;
+function type() {
+  var word = words[wi];
+  typed.textContent = word.substring(0, ci);
+  if (!deleting && ci < word.length) { ci++; setTimeout(type, 90); }
+  else if (!deleting) { deleting = true; setTimeout(type, 1400); }
+  else if (ci > 0) { ci--; setTimeout(type, 45); }
+  else { deleting = false; wi = (wi + 1) % words.length; setTimeout(type, 300); }
 }
+type();
 
+/* 3. scroll reveal + count-up numbers */
+function countUp(el) {
+  var target = parseInt(el.getAttribute("data-count"), 10), n = 0;
+  var t = setInterval(function () { n++; el.textContent = n; if (n >= target) clearInterval(t); }, 250);
+}
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (en) {
+    if (en.isIntersecting) {
+      en.target.classList.add("in");
+      en.target.querySelectorAll("[data-count]").forEach(countUp);
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
 
-/* ---------- 2. CONTACT FORM CHECK ---------- */
+/* 4. 3D tilt on the photo */
+var tilt = document.getElementById("tilt");
+var inner = tilt.querySelector(".tilt-inner");
+tilt.addEventListener("mousemove", function (e) {
+  var r = tilt.getBoundingClientRect();
+  var x = (e.clientX - r.left) / r.width - 0.5;
+  var y = (e.clientY - r.top) / r.height - 0.5;
+  inner.style.transform = "rotateY(" + x * 18 + "deg) rotateX(" + -y * 18 + "deg)";
+});
+tilt.addEventListener("mouseleave", function () { inner.style.transform = ""; });
 
+/* 5. cursor glow, scroll progress, active link, back-to-top */
+var glow = document.getElementById("glow");
+document.addEventListener("mousemove", function (e) { glow.style.left = e.clientX + "px"; glow.style.top = e.clientY + "px"; });
+
+var links = document.querySelectorAll("#nav a");
+var ids = ["about", "skills", "projects", "contact"];
+var toTop = document.getElementById("toTop");
+window.addEventListener("scroll", function () {
+  var h = document.documentElement;
+  document.getElementById("progress").style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+  toTop.classList.toggle("show", h.scrollTop > 500);
+  var current = "";
+  ids.forEach(function (id) {
+    if (document.getElementById(id).getBoundingClientRect().top < window.innerHeight / 2) current = id;
+  });
+  links.forEach(function (a) { a.classList.toggle("active", a.getAttribute("href") === "#" + current); });
+});
+toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+/* 6. skill cards: tap to flip on touch screens */
+document.querySelectorAll(".flip").forEach(function (c) {
+  c.addEventListener("click", function () { c.classList.toggle("on"); });
+});
+
+/* 7. contact form -> saved in local storage */
 var form = document.getElementById("contactForm");
 var formMsg = document.getElementById("formMsg");
-
+function fail(text) {
+  formMsg.textContent = text; formMsg.style.color = "#f87171";
+  form.classList.remove("shake"); void form.offsetWidth; form.classList.add("shake");
+}
 form.addEventListener("submit", function (event) {
-
-  event.preventDefault(); // stop the page from reloading
-
+  event.preventDefault();
   var name = document.getElementById("name").value;
   var email = document.getElementById("email").value;
   var message = document.getElementById("message").value;
+  if (name === "" || email === "" || message === "") return fail("Error: please fill all the fields.");
+  if (email.indexOf("@") === -1) return fail("Error: please enter a valid email.");
 
-  // any empty box -> warning
-  if (name === "" || email === "" || message === "") {
-    formMsg.textContent = "error: please fill all the fields.";
-    formMsg.style.color = "#e5604d";
-    return;
-  }
-
-  // email must contain @
-  if (email.indexOf("@") === -1) {
-    formMsg.textContent = "error: please enter a valid email.";
-    formMsg.style.color = "#e5604d";
-    return;
-  }
-
-  // save the message in local storage
   var saved = [];
-  try {
-    saved = JSON.parse(localStorage.getItem("contactMessages")) || [];
-  } catch (e) {
-    saved = [];
-  }
+  try { saved = JSON.parse(localStorage.getItem("contactMessages")) || []; } catch (e) { saved = []; }
   saved.push({ name: name, email: email, message: message, date: new Date().toLocaleString() });
-  try {
-    localStorage.setItem("contactMessages", JSON.stringify(saved));
-  } catch (e) {
-    formMsg.textContent = "error: could not save the message.";
-    formMsg.style.color = "#e5604d";
-    return;
-  }
+  try { localStorage.setItem("contactMessages", JSON.stringify(saved)); }
+  catch (e) { return fail("Error: could not save the message."); }
 
-  // all good
-  formMsg.textContent = "ok: message saved. thank you.";
-  formMsg.style.color = "#e3a53b";
+  formMsg.textContent = "Message saved. Thank you!";
+  formMsg.style.color = "#22d3ee";
   form.reset();
-});
-
-
-/* ---------- 3. ACTIVE LINK WHILE SCROLLING ---------- */
-
-// the 4 content sections that have a link in the sidebar
-var sectionIds = ["about", "skills", "projects", "contact"];
-
-// runs every time the page is scrolled
-window.addEventListener("scroll", function () {
-
-  var current = "";
-
-  // go through the sections from top to bottom.
-  // the last one whose top has passed the middle of the screen is the one we are in
-  for (var s = 0; s < sectionIds.length; s++) {
-    var section = document.getElementById(sectionIds[s]);
-    var top = section.getBoundingClientRect().top;
-
-    if (top < window.innerHeight / 2) {
-      current = sectionIds[s];
-    }
-  }
-
-  // give the class "active" to the matching link, remove it from the others
-  for (var k = 0; k < links.length; k++) {
-    if (links[k].getAttribute("data-section") === current) {
-      links[k].classList.add("active");
-    } else {
-      links[k].classList.remove("active");
-    }
-  }
 });
