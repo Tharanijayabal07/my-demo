@@ -1,128 +1,100 @@
 <!DOCTYPE html>
-<!-- Portfolio website - Style 2: Index -->
-<!-- TIP: use Find & Replace (Ctrl + H) in your editor to change "Tharani" everywhere at once -->
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tharani | Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- ===== LEFT SIDEBAR (stays fixed on big screens) ===== -->
-  <aside class="side">
+  <div class="progress" id="progress"></div>
+  <div class="glow" id="glow"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
 
-    <div class="side-top">
-      <div>
-        <img src="profile.jpg" alt="Tharani" class="avatar">
-        <p class="tiny">PORTFOLIO / 2026</p>
-        <a href="#top" class="name">Tharani</a>
-        <p class="sub">cs student, coimbatore</p>
-      </div>
-
-      <button class="menu-btn" id="menuBtn">menu</button>
-    </div>
-
-    <nav class="menu" id="menu">
-      <a href="#about" data-section="about"><span>01</span> about</a>
-      <a href="#skills" data-section="skills"><span>02</span> skills</a>
-      <a href="#projects" data-section="projects"><span>03</span> projects</a>
-      <a href="#contact" data-section="contact"><span>04</span> contact</a>
+  <header class="top">
+    <a href="#home" class="logo">tharani<span>.</span></a>
+    <nav id="nav">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </nav>
+    <button class="theme" id="themeBtn" aria-label="Toggle theme">&#9728;</button>
+  </header>
 
-    <!-- CHANGE THESE 2 LINKS -->
-    <div class="side-links">
-      <a href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">github &#8599;</a>
-      <a href="mailto:YOUR-EMAIL@gmail.com">email &#8599;</a>
-    </div>
-
-  </aside>
-
-  <!-- ===== RIGHT SIDE: CONTENT ===== -->
   <main>
-
-    <section id="top" class="hello">
-      <p class="tiny">HELLO</p>
-      <h1>I build things for the web and sometimes for fun.</h1>
-      <p class="lead">
-        Second year B.Sc. Computer Science at KG College of Arts and Science.
-        This page is plain HTML, CSS and JavaScript.
-      </p>
-    </section>
-
-    <section id="about">
-      <h2><span>01 /</span> about</h2>
-      <p>
-        I like turning ideas into working software. Outside class I build
-        projects and join hackathons with a small team.
-      </p>
-      <p>
-        My goal is to become a full stack developer, so I am learning a bit more
-        every week.
-      </p>
-    </section>
-
-    <section id="skills">
-      <h2><span>02 /</span> skills</h2>
-
-      <!-- each row: name ......... what it is used for -->
-      <div class="rows">
-        <div class="row"><b>html</b><i></i><span>page structure</span></div>
-        <div class="row"><b>c</b><i></i><span>programming basics and logic</span></div>
-        <div class="row"><b>c++</b><i></i><span>object-oriented programming</span></div>
-        <div class="row"><b>javascript</b><i></i><span>behaviour and the DOM</span></div>
-        <div class="row"><b>python</b><i></i><span>scripts and AI projects</span></div>
-        <div class="row"><b>git</b><i></i><span>saving and sharing code</span></div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2><span>03 /</span> projects</h2>
-
-      <div class="table">
-        <div class="t-head">
-          <span>name</span>
-          <span>what it is</span>
-          <span>stack</span>
+    <section id="home" class="hero">
+      <div class="hero-text reveal">
+        <p class="eyebrow">Hello, I am</p>
+        <h1>Tharani</h1>
+        <p class="typing">I am a <span id="typed"></span><i class="caret"></i></p>
+        <p class="lead">Second year B.Sc. Computer Science at KG College of Arts and Science, Coimbatore. I like turning ideas into working software.</p>
+        <div class="buttons">
+          <a href="#projects" class="btn primary">View project</a>
+          <a href="#contact" class="btn">Contact me</a>
         </div>
+      </div>
 
-        <div class="t-row">
-          <b>Freelancer Management System</b>
-          <span>To develop a Java-based freelancer management system.</span>
-          <em>java</em>
+      <div class="tilt reveal" id="tilt">
+        <div class="tilt-inner">
+          <img src="profile.jpg" alt="Tharani" class="photo">
+          <span class="badge">CS student</span>
         </div>
       </div>
     </section>
 
-    <section id="contact">
-      <h2><span>04 /</span> contact</h2>
+    <section id="about" class="reveal">
+      <h2><span>01</span> About</h2>
+      <div class="about-grid">
+        <p>I build projects and join hackathons with a small team. My goal is to become a full stack developer, so I am learning a bit more every week.</p>
+        <div class="facts">
+          <div class="fact"><b data-count="2">0</b><span>year of B.Sc. CS</span></div>
+          <div class="fact"><b data-count="1">0</b><span>project</span></div>
+          <div class="fact"><b data-count="6">0</b><span>skills</span></div>
+        </div>
+      </div>
+    </section>
 
+    <section id="skills" class="reveal">
+      <h2><span>02</span> Skills</h2>
+      <p class="hint">Hover or tap a card</p>
+      <div class="skills">
+        <div class="flip" tabindex="0"><div class="face front">HTML</div><div class="face back">page structure</div></div>
+        <div class="flip" tabindex="0"><div class="face front">C</div><div class="face back">programming basics and logic</div></div>
+        <div class="flip" tabindex="0"><div class="face front">C++</div><div class="face back">object-oriented programming</div></div>
+        <div class="flip" tabindex="0"><div class="face front">JavaScript</div><div class="face back">behaviour and the DOM</div></div>
+        <div class="flip" tabindex="0"><div class="face front">Python</div><div class="face back">scripts and AI projects</div></div>
+        <div class="flip" tabindex="0"><div class="face front">Git</div><div class="face back">saving and sharing code</div></div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <h2><span>03</span> Projects</h2>
+      <article class="project" id="project">
+        <span class="tag">Java</span>
+        <h3>Freelancer Management System</h3>
+        <p>To develop a Java-based freelancer management system.</p>
+        <span class="arrow">&rarr;</span>
+      </article>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2><span>04</span> Contact</h2>
       <form id="contactForm">
-        <label for="name">name</label>
-        <input type="text" id="name">
-
-        <label for="email">email</label>
-        <input type="text" id="email">
-
-        <label for="message">message</label>
-        <textarea id="message" rows="4"></textarea>
-
-        <button type="submit">send &rarr;</button>
-        <!-- JavaScript writes the result here -->
+        <div class="field"><input type="text" id="name" placeholder=" "><label for="name">Name</label></div>
+        <div class="field"><input type="text" id="email" placeholder=" "><label for="email">Email</label></div>
+        <div class="field"><textarea id="message" rows="4" placeholder=" "></textarea><label for="message">Message</label></div>
+        <button type="submit" class="btn primary">Send</button>
         <p id="formMsg"></p>
       </form>
     </section>
-
-    <footer>
-      <p>&copy; 2026 Tharani</p>
-    </footer>
-
   </main>
 
+  <footer><p>&copy; 2026 Tharani</p></footer>
+  <button class="to-top" id="toTop" aria-label="Back to top">&uarr;</button>
   <script src="script.js"></script>
 </body>
-
 </html>
