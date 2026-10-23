@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- Portfolio website - Style 2: Index -->
+<!-- TIP: use Find & Replace (Ctrl + H) in your editor to change "Tharani" everywhere at once -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tharani | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===== LEFT SIDEBAR (stays fixed on big screens) ===== -->
+  <aside class="side">
+
+    <div class="side-top">
+      <div>
+        <img src="profile.jpg" alt="Tharani" class="avatar">
+        <p class="tiny">PORTFOLIO / 2026</p>
+        <a href="#top" class="name">Tharani</a>
+        <p class="sub">cs student, coimbatore</p>
+      </div>
+
+      <button class="menu-btn" id="menuBtn">menu</button>
+    </div>
+
+    <nav class="menu" id="menu">
+      <a href="#about" data-section="about"><span>01</span> about</a>
+      <a href="#skills" data-section="skills"><span>02</span> skills</a>
+      <a href="#projects" data-section="projects"><span>03</span> projects</a>
+      <a href="#contact" data-section="contact"><span>04</span> contact</a>
+    </nav>
+
+    <!-- CHANGE THESE 2 LINKS -->
+    <div class="side-links">
+      <a href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">github &#8599;</a>
+      <a href="mailto:YOUR-EMAIL@gmail.com">email &#8599;</a>
+    </div>
+
+  </aside>
+
+  <!-- ===== RIGHT SIDE: CONTENT ===== -->
+  <main>
+
+    <section id="top" class="hello">
+      <p class="tiny">HELLO</p>
+      <h1>I build things for the web and sometimes for fun.</h1>
+      <p class="lead">
+        Second year B.Sc. Computer Science at KG College of Arts and Science.
+        This page is plain HTML, CSS and JavaScript.
+      </p>
+    </section>
+
+    <section id="about">
+      <h2><span>01 /</span> about</h2>
+      <p>
+        I like turning ideas into working software. Outside class I build
+        projects and join hackathons with a small team.
+      </p>
+      <p>
+        My goal is to become a full stack developer, so I am learning a bit more
+        every week.
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2><span>02 /</span> skills</h2>
+
+      <!-- each row: name ......... what it is used for -->
+      <div class="rows">
+        <div class="row"><b>html</b><i></i><span>page structure</span></div>
+        <div class="row"><b>c</b><i></i><span>programming basics and logic</span></div>
+        <div class="row"><b>c++</b><i></i><span>object-oriented programming</span></div>
+        <div class="row"><b>javascript</b><i></i><span>behaviour and the DOM</span></div>
+        <div class="row"><b>python</b><i></i><span>scripts and AI projects</span></div>
+        <div class="row"><b>git</b><i></i><span>saving and sharing code</span></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2><span>03 /</span> projects</h2>
+
+      <div class="table">
+        <div class="t-head">
+          <span>name</span>
+          <span>what it is</span>
+          <span>stack</span>
+        </div>
+
+        <div class="t-row">
+          <b>Freelancer Management System</b>
+          <span>To develop a Java-based freelancer management system.</span>
+          <em>java</em>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2><span>04 /</span> contact</h2>
+
+      <form id="contactForm">
+        <label for="name">name</label>
+        <input type="text" id="name">
+
+        <label for="email">email</label>
+        <input type="text" id="email">
+
+        <label for="message">message</label>
+        <textarea id="message" rows="4"></textarea>
+
+        <button type="submit">send &rarr;</button>
+        <!-- JavaScript writes the result here -->
+        <p id="formMsg"></p>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Tharani</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
